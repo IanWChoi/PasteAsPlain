@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>텍스트 형식 제거 박스</title>
+  <title>텍스트 서식 제거 박스</title>
   <style>
     body {
       font-family: sans-serif;
@@ -33,8 +33,8 @@
 </head>
 <body>
 
-  <h2>텍스트 스타일 제거 박스</h2>
-  <p>복사한 내용을 붙여넣으면 스타일이 제거됩니다.<br>Copy 버튼을 누르면 서식 없이 텍스트만 복사됩니다.</p>
+  <h2>텍스트 서식 제거 박스</h2>
+  <p>복사한 내용을 붙여넣으면 서식이 제거됩니다.<br>Copy 버튼을 누르면 서식 없이 텍스트만 복사됩니다.</p>
   
   <div id="plaintextBox" contenteditable="true"></div>
   <button id="copyBtn"> Copy</button>
@@ -59,7 +59,7 @@
       try {
         document.execCommand("copy");
         selection.removeAllRanges();
-        alert("서식 없이 텍스트가 복사되었습니다!");
+        alert("서식없이 텍스트가 복사되었습니다!");
       } catch (err) {
         alert("복사에 실패했습니다. 수동으로 Ctrl+C를 눌러주세요.");
       }
