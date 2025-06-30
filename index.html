@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>형식 제거 복붙 박스</title>
+  <title>형식 제거 복붙 & 복사 박스</title>
   <style>
     body {
       font-family: sans-serif;
@@ -19,23 +19,49 @@
       line-height: 1.5;
       white-space: pre-wrap;
       overflow-y: auto;
-      margin: 0 auto;
+      margin: 20px auto;
       background-color: #fefefe;
+    }
+    #copyBtn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <h2>형식 제거 붙여넣기 박스</h2>
-  <p>아래 박스에 복사한 내용을 붙여넣으면 글자 스타일이 제거된 텍스트만 남습니다.</p>
+  <h2>형식 제거 복붙 & 복사 박스</h2>
+  <p>복사한 내용을 붙여넣으면 스타일이 제거됩니다.<br>복사 버튼을 누르면 서식 없이 텍스트만 복사됩니다.</p>
   
   <div id="plaintextBox" contenteditable="true"></div>
+  <button id="copyBtn">📋 Copy</button>
 
   <script>
+    // 붙여넣기 시 서식 제거
     document.getElementById("plaintextBox").addEventListener("paste", function(e) {
-      e.preventDefault(); // 기본 붙여넣기 방지
+      e.preventDefault();
       const text = (e.clipboardData || window.clipboardData).getData("text/plain");
       document.execCommand("insertText", false, text);
+    });
+
+    // Copy 버튼 기능
+    document.getElementById("copyBtn").addEventListener("click", function() {
+      const box = document.getElementById("plaintextBox");
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(box);
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      try {
+        document.execCommand("copy");
+        selection.removeAllRanges();
+        alert("서식 없이 텍스트가 복사되었습니다!");
+      } catch (err) {
+        alert("복사에 실패했습니다. 수동으로 Ctrl+C를 눌러주세요.");
+      }
     });
   </script>
 
